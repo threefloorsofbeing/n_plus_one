@@ -22,13 +22,7 @@
 
 ## Ссылки
 
-| Страница | Ссылка |
-|----------|--------|
 | 🌐 **Сайт проекта** | [threefloorsofbeing.github.io/n_plus_one](https://threefloorsofbeing.github.io/n_plus_one/) |
-| 📖 **Книга и модель** | [model/model-ru.html](https://threefloorsofbeing.github.io/n_plus_one/model/model-ru.html) |
-| 🤖 **Обращение ИИ** | [obrashchenie-ii/obrashchenie-ii-ru.html](https://threefloorsofbeing.github.io/n_plus_one/obrashchenie-ii/obrashchenie-ii-ru.html) |
-| ❓ **Критика модели** | [critique/critique-ru.html](https://threefloorsofbeing.github.io/n_plus_one/critique/critique-ru.html) |
-| 📄 **Лицензия** | [license.html](https://threefloorsofbeing.github.io/n_plus_one/license.html) |
 | 📧 **Контакты** | threefloorsofbeing@gmail.com |
 
 ---
