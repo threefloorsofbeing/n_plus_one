@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n+1 — モデル批判</title>
+    <!-- 日本語翻訳 (JA) -->
+    <style>
+        @charset "UTF-8";
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 820px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: left;
+        }
+
+        .page-title {
+            font-size: 34px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+        }
+
+        .content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .content p {
+            margin-bottom: 18px;
+        }
+
+        .content strong {
+            color: #000000;
+        }
+
+        .content .question {
+            font-weight: bold;
+            color: #000000;
+            margin-top: 24px;
+            margin-bottom: 8px;
+            font-size: 19px;
+        }
+
+        .content .question-first {
+            font-weight: bold;
+            color: #000000;
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 19px;
+        }
+
+        .content .answer {
+            margin-bottom: 18px;
+            padding-left: 4px;
+        }
+
+        .content ul {
+            margin: 10px 0 14px 25px;
+            list-style-type: none;
+        }
+
+        .content ul li::before {
+            content: "— ";
+            color: #000000;
+        }
+
+        .content ul li {
+            margin-bottom: 5px;
+            color: #000000;
+        }
+
+        .content ol {
+            margin: 10px 0 14px 25px;
+            list-style-type: decimal;
+            padding-left: 0;
+        }
+
+        .content ol li {
+            margin-bottom: 5px;
+            color: #000000;
+        }
+
+        .content .conclusion {
+            margin-top: 34px;
+            font-weight: bold;
+            font-size: 19px;
+        }
+
+        .back-link {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .back-link a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+
+        .back-link a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 20px 15px;
+            }
+            .page-title {
+                font-size: 28px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+            .content .question,
+            .content .question-first {
+                font-size: 17px;
+            }
+            .back-link {
+                font-size: 14px;
+            }
+            .footer {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="page-title">モデル批判</div>
+
+    <div class="content">
+
+        <p>このモデルは信仰を求めません。検証を求めます。</p>
+
+        <p>質問、疑問、反論があれば — ここに最も一般的なものへの回答があります。</p>
+
+        <div class="question-first">「『本質』『目的』『意味』という用語は — 主観的な選択であり、客観的な真理ではない。」</div>
+        <div class="answer">
+            <p>はい、それは選択です。しかし、恣意的なものではありません。</p>
+            <p>あらゆる生きたシステム — 人、家族、企業、国家 — が存在するためには、三つの質問に答えなければなりません：</p>
+            <ul>
+                <li><em>「私は何でできているのか？」</em> — <strong>本質</strong>。アイデンティティとリソースがなければ、システムは崩壊します。</li>
+                <li><em>「私はどこへ行くのか？」</em> — <strong>目的</strong>。方向性がなければ、システムは混沌とし、脆弱になります。</li>
+                <li><em>「なぜ私は耐えるのか？」</em> — <strong>意味</strong>。正当化がなければ、システムは危機に耐えられません。</li>
+            </ul>
+            <p>これらの三つの質問に答えない生きたシステムを見つけてみてください。見つけたら — 第四のベクトルを追加します。しかし今のところ、そのようなシステムは存在しません。</p>
+        </div>
+
+        <div class="question">「なぜ正確に二つの層 — 生命的（ヴィタル）と認知的（ノエティック）なのか？」</div>
+        <div class="answer">
+            <p>あらゆる経験には二つの側面があるからです。</p>
+            <p><strong>生命的（ヴィタル）</strong> — 身体、リソース、食べ物、生存、お金、安全。それはリソースを通じて癒されます。</p>
+            <p><strong>認知的（ノエティック）</strong> — アイデンティティ、意味、価値観、信頼、愛、真実。それは内省を通じて癒されます。</p>
+            <p>層を混ぜると — 診断できなくなります：</p>
+            <ul>
+                <li><em>空腹は意味についての講義では治せない。</em></li>
+                <li><em>空虚はお金では治せない。</em></li>
+            </ul>
+            <p>二つの層は哲学ではありません。それは実践的な必要性です。</p>
+        </div>
+
+        <div class="question">「なぜ三つの階層なのか？」</div>
+        <div class="answer">
+            <p>あらゆるシステムは常に三つのモードのいずれかにあるからです：</p>
+            <ul>
+                <li><strong>階層1</strong> — 反応的、内省なし。パニック、群集心理、本能。</li>
+                <li><strong>階層2</strong> — 役割ベース、規範への従属。計画、キャリア、義務。</li>
+                <li><strong>階層3</strong> — 統合的、自由と選択。意識、創造性、有限性の受容。</li>
+            </ul>
+            <p>これは哲学ではありません。これは経験科学です。あなたはこれらのモードを自分自身や他人の中で毎日観察することができます。</p>
+        </div>
+
+        <div class="question">「これはただの別の哲学的推測に過ぎない。何千もある。」</div>
+        <div class="answer">
+            <p>このモデルは真理を主張しません。機能性を主張します。</p>
+            <p>それは道具です。ハンマーのように：「真理」ではありませんが、釘を打ちます。誰かがハンマーは「主観的」だと言ったら — 釘を打って結果を示せばいいのです。</p>
+            <p>このモデルの基準は「真理」ではなく、予測の正確性と説明力です。</p>
+        </div>
+
+        <div class="question">「マズローのピラミッド、フランクルのロゴセラピー、キルケゴールがすでにこれを説明している。」</div>
+        <div class="answer">
+            <p>これらのモデルはすべて、現実の異なる平面を説明しています。</p>
+            <ul>
+                <li>マズロー — 欲求の階層。</li>
+                <li>フランクル — 意味への意志。</li>
+                <li>キルケゴール — 人格の段階。</li>
+            </ul>
+            <p>私たちのモデルは、唯一以下のことを実現しています：</p>
+            <ol>
+                <li>これらすべての平面を単一の座標系に統合する。</li>
+                <li>あらゆる規模で機能する — 個人から帝国まで。</li>
+                <li>断裂を診断するツールと「泥棒」の概念を提供する。</li>
+            </ol>
+            <p>私たちは先人を否定しません。彼らの上に立ち、ボリュームを追加しています。</p>
+        </div>
+
+        <div class="question">「あなたのモデルが唯一正しいと証明できない。」</div>
+        <div class="answer">
+            <p>証明しようとはしていません。</p>
+            <p>このモデルは宗教ではありません。「唯一正しい」道を主張しません。「機能する地図」を主張します。</p>
+            <p>より正確な地図があれば — 見せてください。テストします。より正確であれば — それに切り替えます。しかし今のところ、私たちの地図は他者が見えない断裂を示しています。それが証明です。</p>
+        </div>
+
+        <div class="conclusion">結論</div>
+        <p>このモデルは防御されません。使用されます。</p>
+        <p>機能すれば — 防御は不要です。機能しなければ — 変更されるべきです。</p>
+        <p>機能している限り — 批評家はテストできます。しかし反論するには、モデルではなく現実を反論しなければなりません。</p>
+        <p>このモデルは変更に対して開かれています。三つのベクトル、二つの層、三つの階層で記述できないシステムを見つけたら — 改訂します。モデルが見えない断裂を示したら — アップグレードします。より精密なツールを提案したら — それに切り替えます。</p>
+        <p style="margin-top: 18px;"><strong>これは科学であり、宗教ではありません。</strong></p>
+
+    </div>
+
+    <div class="back-link">
+        <a href="../index-ja.html">← メインページに戻る</a>
+    </div>
+
+    <div class="footer">
+        © n+1, 2026
+    </div>
+
+</div>
+
+</body>
+</html>

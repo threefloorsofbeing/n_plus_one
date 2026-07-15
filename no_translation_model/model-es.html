@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n+1 — Modelo</title>
+    <!-- ПЕРЕВОД НА ИСПАНСКИЙ ЯЗЫК (ES) -->
+    <style>
+        @charset "UTF-8";
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 820px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: left;
+        }
+        .content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+        .content .sub {
+            font-size: 20px;
+            color: #000000;
+            margin: 5px 0 10px 0;
+        }
+        .divider {
+            margin: 25px auto;
+            width: 60%;
+            border-top: 1px solid #ccc;
+        }
+        .file-block {
+            margin: 15px 0;
+            font-size: 18px;
+            color: #000000;
+        }
+        .file-block .links {
+            margin-top: 6px;
+            font-size: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 30px;
+        }
+        .file-block .links a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+        .file-block .links a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .modal-content img {
+            max-width: 45%;
+            height: auto;
+            border: 1px solid #555;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+            background: #fff;
+        }
+        .modal-close {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            user-select: none;
+            z-index: 10000;
+            text-decoration: none;
+        }
+        .modal-close:hover {
+            color: #aaa;
+        }
+        .modal-caption {
+            color: #aaa;
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 15px;
+            text-align: center;
+            max-width: 800px;
+            letter-spacing: 1px;
+        }
+        .warning-es {
+            margin: 30px 0 0 0;
+            padding: 14px 20px;
+            background: #ffeeee;
+            border-left: 4px solid #cc0000;
+            font-size: 16px;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            line-height: 1.6;
+        }
+        .warning-es strong {
+            color: #000000;
+        }
+        .no-translation-es {
+            margin: 20px 0 0 0;
+            padding: 14px 20px;
+            background: #ffffff;
+            border-left: 4px solid #000000;
+            font-size: 16px;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            line-height: 1.6;
+        }
+        .no-translation-es strong {
+            color: #000000;
+        }
+        .no-translation-es ul {
+            margin: 10px 0 12px 25px;
+            list-style-type: none;
+        }
+        .no-translation-es ul li::before {
+            content: "— ";
+            color: #000000;
+        }
+        .no-translation-es ul li {
+            margin-bottom: 4px;
+            color: #000000;
+        }
+        .no-translation-es .email {
+            font-weight: bold;
+            color: #000000;
+        }
+        .no-translation-es .footer-quote {
+            margin-top: 20px;
+            font-style: italic;
+            color: #000000;
+            border-top: 1px solid #ccc;
+            padding-top: 16px;
+        }
+        .back-link {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+        }
+        .back-link a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+        .back-link a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+        .lang-switcher {
+            margin-top: 15px;
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #000000;
+            text-align: center;
+        }
+        .lang-switcher a {
+            color: #000000;
+            text-decoration: none;
+            padding: 0 6px;
+        }
+        .lang-switcher a:hover {
+            color: #000000;
+            text-decoration: underline;
+        }
+        .lang-switcher .active {
+            color: #000000;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 20px 15px; }
+            .content { font-size: 16px; }
+            .content .sub { font-size: 18px; }
+            .file-block { font-size: 16px; }
+            .warning-es { font-size: 14px; padding: 10px 15px; }
+            .no-translation-es { font-size: 14px; padding: 10px 15px; }
+            .back-link { font-size: 14px; }
+            .footer { font-size: 12px; }
+            .lang-switcher { font-size: 12px; }
+            .modal-content { flex-direction: column; }
+            .modal-content img { max-width: 90%; }
+            .modal-close { font-size: 30px; top: 15px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="content">
+
+        <p style="font-size: 22px; font-weight: bold; color: #000000;">Toda la filosofía de la Tierra — en una lente.</p>
+
+        <p class="sub">Libro — para comprender.<br>Modelo — para usar.</p>
+
+        <div class="divider"></div>
+
+        <!-- LIBRO -->
+        <div class="file-block">
+            <strong>Libro + modelo analítico "Tres Pisos del Ser" v3.7</strong>
+            <div class="links">
+                <a href="#" onclick="openModal(); return false;">Ver</a>
+                <a href="../books/Книга ТЭБv3.7_сборка 7.07.2026.rtf" download>Descargar</a>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <p style="font-size: 22px; color: #000000;">Todo lo demás — su elección.</p>
+
+    </div>
+
+    <!-- ADVERTENCIA -->
+    <div class="warning-es">
+        <strong>Atención:</strong> El modelo responde en el idioma en el que fue escrito.<br>
+        Traducir preguntas y respuestas a otros idiomas distorsiona el significado.<br>
+        Si desea trabajar en otro idioma — traduzca el modelo teniendo en cuenta los matices culturales.
+    </div>
+
+    <!-- SIN TRADUCCIÓN -->
+    <div class="no-translation-es">
+
+        <p><strong>Todavía no hay traducción a su idioma.</strong></p>
+
+        <p>El libro y el modelo «Tres Pisos del Ser» están escritos en ruso. Esto no es casualidad — el idioma ruso fue el espacio donde el modelo nació y adquirió su precisión terminológica.</p>
+
+        <p>No publicamos traducciones automáticas. Porque un modelo filosófico no es un manual de instrucciones. Es un sistema de términos interconectados. Un error en una palabra destruye toda la estructura.</p>
+
+        <p><strong>Pero usted puede cambiar esto.</strong></p>
+
+        <p><strong>Por qué la traducción automática es imposible</strong></p>
+
+        <p>El modelo «Tres Pisos del Ser» no es ficción ni un manual técnico. Es un <strong>sistema terminológico</strong> donde cada palabra está conectada con otras. Un error en un término destruye toda la estructura.</p>
+
+        <p><strong>Ejemplo:</strong> la palabra «Esencia» no es simplemente «esencia». En el modelo es simultáneamente: fundamento, identidad, núcleo del sistema, la respuesta a la pregunta «quién soy yo?».</p>
+
+        <p>La traducción automática da la ilusión de comprensión pero rompe la lógica. Un lector que use ese modelo obtendrá no una herramienta, sino una copia distorsionada. No podrá diagnosticar rupturas, ver al Ladrón o evaluar la elasticidad noética.</p>
+
+        <p>Por eso esperamos a una <strong>persona</strong> que:</p>
+        <ul>
+            <li>domine el idioma de destino a nivel nativo,</li>
+            <li>comprenda la terminología filosófica,</li>
+            <li>esté dispuesto a ser coautor, no solo traductor.</li>
+        </ul>
+
+        <p><strong>¿Es usted quien buscamos?</strong></p>
+
+        <p>Ya ha descargado el libro en ruso. Lo ha leído o al menos lo ha hojeado. Entiende de qué se trata, y entiende que esta herramienta podría ser útil para las personas que hablan su idioma.</p>
+
+        <p>Si es así — le estamos buscando exactamente a usted.</p>
+
+        <p>No buscamos solo un «traductor». Buscamos un <strong>coautor</strong> que pueda:</p>
+        <ul>
+            <li>Comprender la estructura filosófica del modelo.</li>
+            <li>Encontrar equivalentes adecuados en el idioma de destino.</li>
+            <li>Mantener la coherencia de los términos.</li>
+            <li>Transmitir no solo el significado, sino también el estilo y la energía del texto.</li>
+        </ul>
+
+        <p><strong>Qué hay que traducir:</strong></p>
+        <ul>
+            <li>El texto completo del libro (todos los capítulos excepto el Capítulo 5 — el modelo en su forma axiomática).</li>
+            <li>El texto del modelo en sí (Capítulo 5) — requiere precisión terminológica especial.</li>
+            <li>La anotación, el índice, la bibliografía.</li>
+        </ul>
+
+        <p><strong>Qué ofrecemos:</strong></p>
+        <ul>
+            <li>Este es un proyecto no comercial, pero valoramos su trabajo.</li>
+            <li>Plazos flexibles — la calidad es más importante que la velocidad.</li>
+            <li>Su nombre en el sitio web y en el libro como traductor (o anónimo — como prefiera).</li>
+            <li>La oportunidad de formar parte de la era noética emergente.</li>
+        </ul>
+
+        <p><strong>Cómo empezar:</strong></p>
+
+        <p>Escríbanos <strong>en ruso</strong> a: <span class="email">threefloorsofbeing@gmail.com</span></p>
+
+        <p>Simplemente cuéntenos qué le cautivó del libro y del modelo. Lo demás lo resolveremos juntos.</p>
+
+        <div class="footer-quote">
+            <em>Una herramienta para quienes están listos para ver la realidad real a su alrededor — y más allá — en toda su profundidad y conexión.</em>
+        </div>
+
+    </div>
+
+    <div class="back-link">
+        <a href="../index-es.html">← Volver a la página principal</a>
+    </div>
+
+    <div class="footer">
+        © n+1, 2026
+    </div>
+
+</div>
+
+<!-- VENTANA MODAL -->
+<div class="modal-overlay" id="modal">
+    <span class="modal-close" onclick="closeModal()">✕</span>
+    <div class="modal-content">
+        <img src="../images/cover-front.jpg" alt="Portada del libro">
+        <img src="../images/cover-back.jpg" alt="Contraportada del libro">
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('modal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        document.getElementById('modal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+    document.getElementById('modal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+</script>
+
+</body>
+</html>

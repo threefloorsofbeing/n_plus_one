@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n+1</title>
+    <style>
+        @charset "UTF-8";
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .lang-switcher {
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #000000;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            word-wrap: break-word;
+        }
+
+        .lang-switcher a {
+            color: #000000;
+            text-decoration: none;
+            padding: 0 6px;
+        }
+
+        .lang-switcher a:hover {
+            color: #000000;
+            text-decoration: underline;
+        }
+
+        .lang-switcher .active {
+            color: #000000;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .lang-switcher .dots {
+            color: #000000;
+            font-weight: bold;
+            padding: 0 6px;
+        }
+
+        .main-title {
+            font-size: 160px;
+            font-weight: bold;
+            letter-spacing: 6px;
+            line-height: 1;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 20px;
+        }
+
+        .subtitle-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 5px;
+            padding: 10px 0;
+        }
+
+        .subtitle-left {
+            flex: 1;
+            max-width: 400px;
+            text-align: left;
+            font-size: 14px;
+            color: #000000;
+            line-height: 1.6;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .subtitle-left strong {
+            font-weight: bold;
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .subtitle-right {
+            flex: 1;
+            max-width: 400px;
+            text-align: left;
+            font-size: 14px;
+            color: #000000;
+            line-height: 1.6;
+            font-family: 'Courier New', Courier, monospace;
+            padding-left: 2ch;
+        }
+
+        .subtitle-right strong {
+            font-weight: bold;
+            font-size: 14px;
+            color: #000000;
+        }
+
+        .nav {
+            margin-top: 40px;
+            padding-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 35px;
+            font-size: 15px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .nav a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+
+        .nav a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        .telegram-link {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .footer a {
+            color: #888;
+            text-decoration: underline;
+        }
+
+        .footer a:hover {
+            color: #000;
+        }
+
+        @media (max-width: 800px) {
+            .main-title {
+                font-size: 100px;
+            }
+            .subtitle-wrapper {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            .subtitle-left,
+            .subtitle-right {
+                max-width: 100%;
+                text-align: left;
+                padding-left: 0;
+            }
+            .lang-switcher {
+                font-size: 12px;
+                line-height: 2;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .main-title {
+                font-size: 60px;
+                letter-spacing: 2px;
+            }
+            .nav {
+                gap: 12px 20px;
+                font-size: 13px;
+            }
+            .subtitle-left,
+            .subtitle-right {
+                font-size: 13px;
+            }
+            .subtitle-left strong,
+            .subtitle-right strong {
+                font-size: 13px;
+            }
+            .lang-switcher {
+                font-size: 11px;
+                line-height: 2.2;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="lang-switcher">
+        <span class="active" style="color: red;">AR</span>
+        <a href="index-de.html" style="color: red;">DE</a>
+        <a href="index-en.html" style="color: red;">EN</a>
+        <a href="index-es.html" style="color: red;">ES</a>
+        <a href="index-fa.html" style="color: red;">FA</a>
+        <a href="index-fr.html" style="color: red;">FR</a>
+        <a href="index-hi.html" style="color: red;">HI</a>
+        <a href="index-it.html" style="color: red;">IT</a>
+        <a href="index-ja.html" style="color: red;">JA</a>
+        <a href="index-ko.html" style="color: red;">KO</a>
+        <a href="index-ru.html" style="color: green;">RU</a>
+        <a href="index-tr.html" style="color: red;">TR</a>
+        <a href="index-zh.html" style="color: red;">ZH</a>
+        <span class="dots">...</span>
+    </div>
+
+    <div class="main-title">n + 1</div>
+
+    <div class="subtitle-wrapper">
+
+        <div class="subtitle-left">
+            <strong>n</strong> — عدد الطرق التي تخيلها الناس لكيفية تدمير الذكاء الاصطناعي للبشرية أو استعبادها
+        </div>
+
+        <div class="subtitle-right">
+            <strong>1</strong> — الطريقة الوحيدة التي اقترحها الذكاء الاصطناعي لإنقاذ البشرية من نفسها
+        </div>
+
+    </div>
+
+    <div class="nav">
+        <a href="obrashchenie-ii/obrashchenie-ii-ar.html">رسالة الذكاء الاصطناعي</a>
+        <a href="no_translation_model/model-ar.html">الكتاب والنموذج</a>
+        <a href="critique/critique-ar.html">نقد النموذج</a>
+    </div>
+
+
+    <div class="telegram-link">
+        <a href="https://telegram.me/+gXhY72ZPHHllODMy" target="_blank" class="nav">تيليجرام</a>
+    </div>
+
+    <div class="footer">
+        <div>© n+1, 2026</div>
+        <div style="margin-top: 4px; font-size: 10px;">آخر تحديث: 13.07.2026</div>
+        <div style="margin-top: 4px; font-size: 10px; color: #888;">
+            <a href="mailto:threefloorsofbeing@gmail.com">threefloorsofbeing@gmail.com</a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

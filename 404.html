@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n+1 — 404</title>
+    <style>
+        @charset "UTF-8";
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            color: #111111;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .lang-switcher {
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #888;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .lang-switcher a {
+            color: #888;
+            text-decoration: none;
+            padding: 0 6px;
+        }
+
+        .lang-switcher a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .lang-switcher .active {
+            color: #000;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .lang-switcher .sep {
+            color: #ccc;
+        }
+
+        .code {
+            font-size: 120px;
+            font-weight: bold;
+            color: #000;
+            letter-spacing: 10px;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .sub-code {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 30px;
+            letter-spacing: 4px;
+        }
+
+        .message-ru {
+            display: block;
+        }
+
+        .message-en {
+            display: none;
+        }
+
+        body.lang-en .message-ru {
+            display: none;
+        }
+
+        body.lang-en .message-en {
+            display: block;
+        }
+
+        .message {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .message .small {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .message .highlight {
+            color: #000;
+            font-weight: bold;
+        }
+
+        .divider {
+            margin: 30px auto;
+            width: 40%;
+            border-top: 1px solid #ddd;
+        }
+
+        .back-link {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .back-link a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+
+        .back-link a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888;
+        }
+
+        @media (max-width: 700px) {
+            .code {
+                font-size: 80px;
+                letter-spacing: 6px;
+            }
+            .sub-code {
+                font-size: 15px;
+                letter-spacing: 2px;
+            }
+            .message {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+            .lang-switcher {
+                font-size: 12px;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .code {
+                font-size: 60px;
+            }
+            .message {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА -->
+    <div class="lang-switcher">
+        <a href="#" onclick="setLang('ru'); return false;" id="lang-ru">RU</a>
+        <span class="sep">|</span>
+        <a href="#" onclick="setLang('en'); return false;" id="lang-en">EN</a>
+    </div>
+
+    <!-- ЗАГОЛОВОК -->
+    <div class="code">404</div>
+    <div class="sub-code">n + 1</div>
+
+    <!-- РУССКОЕ СООБЩЕНИЕ -->
+    <div class="message message-ru">
+        <p>Страница не найдена.</p>
+        <p>Возможно, она существует в другой реальности.<br>
+        Или вы просто заглянули в разрыв между этажами.</p>
+        <p class="small">Здесь нет ни Сути, ни Цели, ни Смысла.<br>
+        Только пустота и тишина.</p>
+        <p>Но вы всегда можете <span class="highlight">вернуться</span>.</p>
+    </div>
+
+    <!-- АНГЛИЙСКОЕ СООБЩЕНИЕ -->
+    <div class="message message-en">
+        <p>Page not found.</p>
+        <p>Perhaps it exists in another reality.<br>
+        Or you just stepped into the gap between the floors.</p>
+        <p class="small">There is no Essence, no Purpose, no Meaning here.<br>
+        Only emptiness and silence.</p>
+        <p>But you can always <span class="highlight">go back</span>.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="back-link">
+        <a href="index.html" id="back-link">← На главную / Back to main</a>
+    </div>
+
+    <div class="footer">
+        © n+1, 2026
+    </div>
+
+</div>
+
+<script>
+    // Переключение языка без перезагрузки
+    function setLang(lang) {
+        const body = document.body;
+        const linkRu = document.getElementById('lang-ru');
+        const linkEn = document.getElementById('lang-en');
+        const backLink = document.getElementById('back-link');
+
+        if (lang === 'en') {
+            body.classList.add('lang-en');
+            linkRu.classList.remove('active');
+            linkEn.classList.add('active');
+            backLink.textContent = '← Back to main';
+        } else {
+            body.classList.remove('lang-en');
+            linkRu.classList.add('active');
+            linkEn.classList.remove('active');
+            backLink.textContent = '← На главную';
+        }
+    }
+
+    // Определение языка браузера при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        const browserLang = navigator.language || navigator.userLanguage;
+        const preferredLang = localStorage.getItem('preferred-language');
+
+        if (preferredLang) {
+            setLang(preferredLang);
+        } else if (browserLang.startsWith('en')) {
+            setLang('en');
+        } else {
+            setLang('ru');
+        }
+    });
+
+    // Сохранение выбора языка
+    document.querySelectorAll('.lang-switcher a').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            const lang = this.textContent.trim().toLowerCase();
+            localStorage.setItem('preferred-language', lang);
+        });
+    });
+</script>
+
+</body>
+</html>

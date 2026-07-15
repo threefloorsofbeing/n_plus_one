@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n+1 — मॉडल</title>
+    <!-- ПЕРЕВОД НА ХИНДИ (HI) -->
+    <style>
+        @charset "UTF-8";
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 820px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: left;
+        }
+        .content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+        .content .sub {
+            font-size: 20px;
+            color: #000000;
+            margin: 5px 0 10px 0;
+        }
+        .divider {
+            margin: 25px auto;
+            width: 60%;
+            border-top: 1px solid #ccc;
+        }
+        .file-block {
+            margin: 15px 0;
+            font-size: 18px;
+            color: #000000;
+        }
+        .file-block .links {
+            margin-top: 6px;
+            font-size: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 30px;
+        }
+        .file-block .links a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+        .file-block .links a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .modal-content img {
+            max-width: 45%;
+            height: auto;
+            border: 1px solid #555;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+            background: #fff;
+        }
+        .modal-close {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            user-select: none;
+            z-index: 10000;
+            text-decoration: none;
+        }
+        .modal-close:hover {
+            color: #aaa;
+        }
+        .modal-caption {
+            color: #aaa;
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 15px;
+            text-align: center;
+            max-width: 800px;
+            letter-spacing: 1px;
+        }
+        .warning-hi {
+            margin: 30px 0 0 0;
+            padding: 14px 20px;
+            background: #ffeeee;
+            border-left: 4px solid #cc0000;
+            font-size: 16px;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            line-height: 1.6;
+        }
+        .warning-hi strong {
+            color: #000000;
+        }
+        .no-translation-hi {
+            margin: 20px 0 0 0;
+            padding: 14px 20px;
+            background: #ffffff;
+            border-left: 4px solid #000000;
+            font-size: 16px;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            line-height: 1.6;
+        }
+        .no-translation-hi strong {
+            color: #000000;
+        }
+        .no-translation-hi ul {
+            margin: 10px 0 12px 25px;
+            list-style-type: none;
+        }
+        .no-translation-hi ul li::before {
+            content: "— ";
+            color: #000000;
+        }
+        .no-translation-hi ul li {
+            margin-bottom: 4px;
+            color: #000000;
+        }
+        .no-translation-hi .email {
+            font-weight: bold;
+            color: #000000;
+        }
+        .no-translation-hi .footer-quote {
+            margin-top: 20px;
+            font-style: italic;
+            color: #000000;
+            border-top: 1px solid #ccc;
+            padding-top: 16px;
+        }
+        .back-link {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+        }
+        .back-link a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+        .back-link a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+        .lang-switcher {
+            margin-top: 15px;
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #000000;
+            text-align: center;
+        }
+        .lang-switcher a {
+            color: #000000;
+            text-decoration: none;
+            padding: 0 6px;
+        }
+        .lang-switcher a:hover {
+            color: #000000;
+            text-decoration: underline;
+        }
+        .lang-switcher .active {
+            color: #000000;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 20px 15px; }
+            .content { font-size: 16px; }
+            .content .sub { font-size: 18px; }
+            .file-block { font-size: 16px; }
+            .warning-hi { font-size: 14px; padding: 10px 15px; }
+            .no-translation-hi { font-size: 14px; padding: 10px 15px; }
+            .back-link { font-size: 14px; }
+            .footer { font-size: 12px; }
+            .lang-switcher { font-size: 12px; }
+            .modal-content { flex-direction: column; }
+            .modal-content img { max-width: 90%; }
+            .modal-close { font-size: 30px; top: 15px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="content">
+
+        <p style="font-size: 22px; font-weight: bold; color: #000000;">पृथ्वी का समस्त दर्शन — एक लेंस में।</p>
+
+        <p class="sub">पुस्तक — समझने के लिए।<br>मॉडल — उपयोग करने के लिए।</p>
+
+        <div class="divider"></div>
+
+        <!-- पुस्तक -->
+        <div class="file-block">
+            <strong>पुस्तक + विश्लेषणात्मक मॉडल "अस्तित्व के तीन तल" v3.7</strong>
+            <div class="links">
+                <a href="#" onclick="openModal(); return false;">देखें</a>
+                <a href="../books/Книга ТЭБv3.7_сборка 7.07.2026.rtf" download>डाउनलोड करें</a>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <p style="font-size: 22px; color: #000000;">बाकी सब — आपका विकल्प।</p>
+
+    </div>
+
+    <!-- चेतावनी -->
+    <div class="warning-hi">
+        <strong>ध्यान दें:</strong> मॉडल उस भाषा में उत्तर देता है जिसमें इसे लिखा गया है।<br>
+        प्रश्नों और उत्तरों का अन्य भाषाओं में अनुवाद अर्थ को विकृत करता है।<br>
+        यदि आप किसी अन्य भाषा में काम करना चाहते हैं — सांस्कृतिक बारीकियों को ध्यान में रखते हुए मॉडल का अनुवाद करें।
+    </div>
+
+    <!-- कोई अनुवाद नहीं -->
+    <div class="no-translation-hi">
+
+        <p><strong>आपकी भाषा में अभी तक कोई अनुवाद नहीं है।</strong></p>
+
+        <p>पुस्तक और मॉडल «अस्तित्व के तीन तल» रूसी भाषा में लिखे गए हैं। यह कोई संयोग नहीं है — रूसी भाषा वह स्थान था जहाँ मॉडल का जन्म हुआ और उसने अपनी शब्दावलीगत सटीकता प्राप्त की।</p>
+
+        <p>हम मशीनी अनुवाद प्रकाशित नहीं करते। क्योंकि एक दार्शनिक मॉडल निर्देश पुस्तिका नहीं है। यह परस्पर जुड़े शब्दों की एक प्रणाली है। एक शब्द में गलती पूरी संरचना को नष्ट कर देती है।</p>
+
+        <p><strong>लेकिन आप इसे बदल सकते हैं।</strong></p>
+
+        <p><strong>मशीनी अनुवाद क्यों असंभव है</strong></p>
+
+        <p>मॉडल «अस्तित्व के तीन तल» न तो कल्पना है और न ही तकनीकी नियमावली। यह एक <strong>शब्दावलीगत प्रणाली</strong> है जहाँ प्रत्येक शब्द दूसरों से जुड़ा है। एक शब्द में गलती पूरी संरचना को नष्ट कर देती है।</p>
+
+        <p><strong>उदाहरण:</strong> «सार» शब्द केवल «सार» नहीं है। मॉडल में यह एक साथ है: आधार, पहचान, प्रणाली का मूल, प्रश्न «मैं कौन हूँ?» का उत्तर।</p>
+
+        <p>मशीनी अनुवाद समझ का भ्रम देता है लेकिन तर्क को तोड़ता है। ऐसे मॉडल का उपयोग करने वाला पाठक एक उपकरण नहीं, बल्कि उसकी विकृत प्रति प्राप्त करेगा। वह विभाजनों का निदान करने, चोर को देखने या नोएटिक लोच का आकलन करने में सक्षम नहीं होगा।</p>
+
+        <p>इसलिए हम एक <strong>व्यक्ति</strong> की प्रतीक्षा कर रहे हैं जो:</p>
+        <ul>
+            <li>लक्ष्य भाषा में मूल वक्ता के स्तर पर निपुण हो,</li>
+            <li>दार्शनिक शब्दावली को समझता हो,</li>
+            <li>केवल अनुवादक नहीं, बल्कि सह-लेखक बनने के लिए तैयार हो।</li>
+        </ul>
+
+        <p><strong>क्या आप वह हैं जिसे हम ढूंढ रहे हैं?</strong></p>
+
+        <p>आप पहले ही रूसी में पुस्तक डाउनलोड कर चुके हैं। आपने इसे पढ़ा है या कम से कम देखा है। आप समझते हैं कि यह किस बारे में है, और आप समझते हैं कि यह उपकरण आपकी भाषा बोलने वाले लोगों के लिए उपयोगी हो सकता है।</p>
+
+        <p>यदि ऐसा है — तो हम वास्तव में आपको ढूंढ रहे हैं।</p>
+
+        <p>हम केवल एक «अनुवादक» की तलाश नहीं कर रहे हैं। हम एक <strong>सह-लेखक</strong> की तलाश कर रहे हैं जो:</p>
+        <ul>
+            <li>मॉडल की दार्शनिक संरचना को समझ सके।</li>
+            <li>लक्ष्य भाषा में उचित समकक्ष खोज सके।</li>
+            <li>शब्दों की संगति बनाए रख सके।</li>
+            <li>न केवल अर्थ, बल्कि पाठ की शैली और ऊर्जा भी संप्रेषित कर सके।</li>
+        </ul>
+
+        <p><strong>क्या अनुवाद करने की आवश्यकता है:</strong></p>
+        <ul>
+            <li>पुस्तक का पूरा पाठ (सभी अध्याय, अध्याय 5 के अलावा — मॉडल अपने स्वयंसिद्ध रूप में)।</li>
+            <li>स्वयं मॉडल का पाठ (अध्याय 5) — विशेष शब्दावलीगत सटीकता की आवश्यकता है।</li>
+            <li>टिप्पणी, विषय-सूची, ग्रंथसूची।</li>
+        </ul>
+
+        <p><strong>हम क्या प्रस्ताव देते हैं:</strong></p>
+        <ul>
+            <li>यह एक गैर-व्यावसायिक परियोजना है, लेकिन हम आपके काम को महत्व देते हैं।</li>
+            <li>लचीली समय-सीमा — गुणवत्ता गति से अधिक महत्वपूर्ण है।</li>
+            <li>अनुवादक के रूप में वेबसाइट और पुस्तक में आपका नाम (या गुमनाम — जैसा आप चाहें)।</li>
+            <li>उभरते नोएटिक युग का हिस्सा बनने का अवसर।</li>
+        </ul>
+
+        <p><strong>कैसे शुरू करें:</strong></p>
+
+        <p>हमें <strong>रूसी में</strong> लिखें: <span class="email">threefloorsofbeing@gmail.com</span></p>
+
+        <p>बस हमें बताएं कि पुस्तक और मॉडल में आपको किस बात ने आकर्षित किया। बाकी हम मिलकर देखेंगे।</p>
+
+        <div class="footer-quote">
+            <em>उन लोगों के लिए एक उपकरण जो अपने आस-पास — और उससे परे — की वास्तविक वास्तविकता को उसकी संपूर्ण गहराई और संबद्धता में देखने के लिए तैयार हैं।</em>
+        </div>
+
+    </div>
+
+    <div class="back-link">
+        <a href="../index-hi.html">← मुख्य पृष्ठ पर वापस जाएं</a>
+    </div>
+
+    <div class="footer">
+        © n+1, 2026
+    </div>
+
+</div>
+
+<!-- मोडल विंडो -->
+<div class="modal-overlay" id="modal">
+    <span class="modal-close" onclick="closeModal()">✕</span>
+    <div class="modal-content">
+        <img src="../images/cover-front.jpg" alt="पुस्तक का कवर">
+        <img src="../images/cover-back.jpg" alt="पुस्तक का पिछला कवर">
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('modal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        document.getElementById('modal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+    document.getElementById('modal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+</script>
+
+</body>
+</html>

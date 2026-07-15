@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n+1 — Critica del Modello</title>
+    <!-- TRADUZIONE IN ITALIANO (IT) -->
+    <style>
+        @charset "UTF-8";
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 820px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: left;
+        }
+
+        .page-title {
+            font-size: 34px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+        }
+
+        .content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .content p {
+            margin-bottom: 18px;
+        }
+
+        .content strong {
+            color: #000000;
+        }
+
+        .content .question {
+            font-weight: bold;
+            color: #000000;
+            margin-top: 24px;
+            margin-bottom: 8px;
+            font-size: 19px;
+        }
+
+        .content .question-first {
+            font-weight: bold;
+            color: #000000;
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 19px;
+        }
+
+        .content .answer {
+            margin-bottom: 18px;
+            padding-left: 4px;
+        }
+
+        .content ul {
+            margin: 10px 0 14px 25px;
+            list-style-type: none;
+        }
+
+        .content ul li::before {
+            content: "— ";
+            color: #000000;
+        }
+
+        .content ul li {
+            margin-bottom: 5px;
+            color: #000000;
+        }
+
+        .content ol {
+            margin: 10px 0 14px 25px;
+            list-style-type: decimal;
+            padding-left: 0;
+        }
+
+        .content ol li {
+            margin-bottom: 5px;
+            color: #000000;
+        }
+
+        .content .conclusion {
+            margin-top: 34px;
+            font-weight: bold;
+            font-size: 19px;
+        }
+
+        .back-link {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .back-link a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+
+        .back-link a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 20px 15px;
+            }
+            .page-title {
+                font-size: 28px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+            .content .question,
+            .content .question-first {
+                font-size: 17px;
+            }
+            .back-link {
+                font-size: 14px;
+            }
+            .footer {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="page-title">Critica del Modello</div>
+
+    <div class="content">
+
+        <p>Il modello non chiede fede. Chiede verifica.</p>
+
+        <p>Se hai domande, dubbi o obiezioni — ecco le risposte alle più comuni.</p>
+
+        <div class="question-first">«I termini 'Essenza', 'Scopo', 'Senso' — sono una scelta soggettiva, non una verità oggettiva.»</div>
+        <div class="answer">
+            <p>Sì, è una scelta. Ma non arbitraria.</p>
+            <p>Qualsiasi sistema vivente — persona, famiglia, azienda, stato — per esistere, deve rispondere a tre domande:</p>
+            <ul>
+                <li><em>«Di cosa sono fatto?»</em> — <strong>Essenza</strong>. Senza identità e risorse, il sistema si disintegra.</li>
+                <li><em>«Dove vado?»</em> — <strong>Scopo</strong>. Senza direzione, il sistema è caotico e vulnerabile.</li>
+                <li><em>«Perché sopporto?»</em> — <strong>Senso</strong>. Senza giustificazione, il sistema non resiste alle crisi.</li>
+            </ul>
+            <p>Cerca di trovare un sistema vivente che non risponda a queste tre domande. Se ne trovi uno — aggiungeremo un quarto vettore. Ma finora, tali sistemi non esistono.</p>
+        </div>
+
+        <div class="question">«Perché esattamente due strati — vitale e noetico?»</div>
+        <div class="answer">
+            <p>Perché ogni esperienza ha due facce.</p>
+            <p><strong>Vitale</strong> — corpo, risorse, cibo, sopravvivenza, denaro, sicurezza. Si cura attraverso le risorse.</p>
+            <p><strong>Noetico</strong> — identità, senso, valori, fiducia, amore, verità. Si cura attraverso la riflessione.</p>
+            <p>Se mescoli gli strati — non puoi diagnosticare:</p>
+            <ul>
+                <li><em>La fame non si cura con una lezione sul senso.</em></li>
+                <li><em>Il vuoto non si cura con il denaro.</em></li>
+            </ul>
+            <p>Due strati non sono filosofia. Sono necessità pratica.</p>
+        </div>
+
+        <div class="question">«Perché tre piani?»</div>
+        <div class="answer">
+            <p>Perché qualsiasi sistema in qualsiasi momento si trova in una di tre modalità:</p>
+            <ul>
+                <li><strong>Piano 1</strong> — reattivo, senza riflessione. Panico, istinto gregario, istinti.</li>
+                <li><strong>Piano 2</strong> — basato sui ruoli, sottomissione alle norme. Piani, carriera, dovere.</li>
+                <li><strong>Piano 3</strong> — integrale, libertà e scelta. Consapevolezza, creatività, accettazione della finitezza.</li>
+            </ul>
+            <p>Questa non è filosofia. È empiria. Puoi osservare queste modalità in te stesso e negli altri ogni giorno.</p>
+        </div>
+
+        <div class="question">«Questa è solo un'altra speculazione filosofica, ce ne sono migliaia.»</div>
+        <div class="answer">
+            <p>Il modello non pretende di essere la verità. Pretende di essere funzionale.</p>
+            <p>È uno strumento. Come un martello: non è «verità», ma pianta chiodi. Se qualcuno dice che un martello è «soggettivo» — pianta semplicemente un chiodo e mostra il risultato.</p>
+            <p>Il criterio del modello non è la «verità», ma l'accuratezza predittiva e il potere esplicativo.</p>
+        </div>
+
+        <div class="question">«La piramide di Maslow, la logoterapia di Frankl, Kierkegaard hanno già spiegato questo.»</div>
+        <div class="answer">
+            <p>Tutti questi modelli descrivono diversi piani della realtà.</p>
+            <ul>
+                <li>Maslow — la gerarchia dei bisogni.</li>
+                <li>Frankl — la volontà di senso.</li>
+                <li>Kierkegaard — le fasi della personalità.</li>
+            </ul>
+            <p>Il nostro modello è l'unico che:</p>
+            <ol>
+                <li>Riunisce tutti questi piani in un unico sistema di coordinate.</li>
+                <li>Funziona su qualsiasi scala — da una persona a un impero.</li>
+                <li>Fornisce uno strumento per diagnosticare le rotture e la figura del «Ladro».</li>
+            </ol>
+            <p>Non neghiamo i nostri predecessori. Ci basiamo su di loro, aggiungendo volume.</p>
+        </div>
+
+        <div class="question">«Non potete dimostrare che il vostro modello sia l'unico corretto.»</div>
+        <div class="answer">
+            <p>Non ci proviamo.</p>
+            <p>Il modello non è una religione. Non pretende di essere la via «unica corretta». Pretende di essere una «mappa funzionante».</p>
+            <p>Se hai una mappa più precisa — mostrala. La testeremo. Se è più precisa — passeremo a quella. Ma per ora, la nostra mappa mostra rotture che altri non vedono. E questa è la sua prova.</p>
+        </div>
+
+        <div class="conclusion">Conclusione</div>
+        <p>Il modello non viene difeso. Viene usato.</p>
+        <p>Se funziona — non ha bisogno di difesa. Se non funziona — va cambiato.</p>
+        <p>Finché funziona — i critici possono testarlo. Ma per confutarlo, dovranno confutare la realtà, non il modello.</p>
+        <p>Il modello è aperto al cambiamento. Se trovi un sistema che non può essere descritto da tre vettori, due strati e tre piani — lo rivedremo. Se mostri una rottura che il modello non vede — lo miglioreremo. Se proponi uno strumento più preciso — passeremo a quello.</p>
+        <p style="margin-top: 18px;"><strong>Questa è scienza, non religione.</strong></p>
+
+    </div>
+
+    <div class="back-link">
+        <a href="../index-it.html">← Torna alla pagina principale</a>
+    </div>
+
+    <div class="footer">
+        © n+1, 2026
+    </div>
+
+</div>
+
+</body>
+</html>

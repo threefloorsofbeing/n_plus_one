@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n+1 — 模型</title>
+    <!-- 中文翻译 (ZH) -->
+    <style>
+        @charset "UTF-8";
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 820px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: left;
+        }
+        .content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+        .content .sub {
+            font-size: 20px;
+            color: #000000;
+            margin: 5px 0 10px 0;
+        }
+        .divider {
+            margin: 25px auto;
+            width: 60%;
+            border-top: 1px solid #ccc;
+        }
+        .file-block {
+            margin: 15px 0;
+            font-size: 18px;
+            color: #000000;
+        }
+        .file-block .links {
+            margin-top: 6px;
+            font-size: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 30px;
+        }
+        .file-block .links a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+        .file-block .links a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .modal-content img {
+            max-width: 45%;
+            height: auto;
+            border: 1px solid #555;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+            background: #fff;
+        }
+        .modal-close {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            user-select: none;
+            z-index: 10000;
+            text-decoration: none;
+        }
+        .modal-close:hover {
+            color: #aaa;
+        }
+        .modal-caption {
+            color: #aaa;
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 15px;
+            text-align: center;
+            max-width: 800px;
+            letter-spacing: 1px;
+        }
+        .warning-zh {
+            margin: 30px 0 0 0;
+            padding: 14px 20px;
+            background: #ffeeee;
+            border-left: 4px solid #cc0000;
+            font-size: 16px;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            line-height: 1.6;
+        }
+        .warning-zh strong {
+            color: #000000;
+        }
+        .no-translation-zh {
+            margin: 20px 0 0 0;
+            padding: 14px 20px;
+            background: #ffffff;
+            border-left: 4px solid #000000;
+            font-size: 16px;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            line-height: 1.6;
+        }
+        .no-translation-zh strong {
+            color: #000000;
+        }
+        .no-translation-zh ul {
+            margin: 10px 0 12px 25px;
+            list-style-type: none;
+        }
+        .no-translation-zh ul li::before {
+            content: "— ";
+            color: #000000;
+        }
+        .no-translation-zh ul li {
+            margin-bottom: 4px;
+            color: #000000;
+        }
+        .no-translation-zh .email {
+            font-weight: bold;
+            color: #000000;
+        }
+        .no-translation-zh .footer-quote {
+            margin-top: 20px;
+            font-style: italic;
+            color: #000000;
+            border-top: 1px solid #ccc;
+            padding-top: 16px;
+        }
+        .back-link {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+        }
+        .back-link a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+        .back-link a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+        .lang-switcher {
+            margin-top: 15px;
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #000000;
+            text-align: center;
+        }
+        .lang-switcher a {
+            color: #000000;
+            text-decoration: none;
+            padding: 0 6px;
+        }
+        .lang-switcher a:hover {
+            color: #000000;
+            text-decoration: underline;
+        }
+        .lang-switcher .active {
+            color: #000000;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 20px 15px; }
+            .content { font-size: 16px; }
+            .content .sub { font-size: 18px; }
+            .file-block { font-size: 16px; }
+            .warning-zh { font-size: 14px; padding: 10px 15px; }
+            .no-translation-zh { font-size: 14px; padding: 10px 15px; }
+            .back-link { font-size: 14px; }
+            .footer { font-size: 12px; }
+            .lang-switcher { font-size: 12px; }
+            .modal-content { flex-direction: column; }
+            .modal-content img { max-width: 90%; }
+            .modal-close { font-size: 30px; top: 15px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="content">
+
+        <p style="font-size: 22px; font-weight: bold; color: #000000;">地球的全部哲学 —— 在一个透镜中。</p>
+
+        <p class="sub">书籍 —— 为了理解。<br>模型 —— 为了使用。</p>
+
+        <div class="divider"></div>
+
+        <!-- 书籍 -->
+        <div class="file-block">
+            <strong>书籍 + 分析模型 "存在的三个层次" v3.7</strong>
+            <div class="links">
+                <a href="#" onclick="openModal(); return false;">查看</a>
+                <a href="../books/Книга ТЭБv3.7_сборка 7.07.2026.rtf" download>下载</a>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <p style="font-size: 22px; color: #000000;">其余 —— 您的选择。</p>
+
+    </div>
+
+    <!-- 警告 -->
+    <div class="warning-zh">
+        <strong>注意：</strong> 模型以编写时所使用的语言进行回应。<br>
+        将问题和答案翻译成其他语言会扭曲其含义。<br>
+        如果您想用其他语言工作 —— 请考虑文化差异来翻译模型。
+    </div>
+
+    <!-- 无翻译 -->
+    <div class="no-translation-zh">
+
+        <p><strong>您的语言尚无翻译。</strong></p>
+
+        <p>书籍和模型《存在的三个层次》以俄语写成。这并非偶然 —— 俄语是模型诞生并获得其术语精确性的空间。</p>
+
+        <p>我们不发布机器翻译。因为哲学模型不是说明书。它是一个相互关联的术语系统。一个词的错误会破坏整个结构。</p>
+
+        <p><strong>但您可以改变这一点。</strong></p>
+
+        <p><strong>为什么机器翻译是不可能的</strong></p>
+
+        <p>《存在的三个层次》模型既非小说，也非技术手册。它是一个 <strong>术语系统</strong>，其中每个词都与其他词相连。一个术语的错误会破坏整个结构。</p>
+
+        <p><strong>示例：</strong>「本质」一词不仅仅是「本质」。在模型中它同时是：基础、身份、系统的核心、对「我是谁？」这个问题的回答。</p>
+
+        <p>机器翻译带来理解的错觉，但破坏了逻辑。使用这种模型的读者得到的不是工具，而是其扭曲的复制品。他将无法诊断断裂、看到小偷或评估诺耶蒂克弹性。</p>
+
+        <p>因此，我们在等待一个 <strong>人</strong>，这个人：</p>
+        <ul>
+            <li>以母语水平掌握目标语言，</li>
+            <li>理解哲学术语，</li>
+            <li>准备好成为合著者，而不仅仅是翻译者。</li>
+        </ul>
+
+        <p><strong>您是我们正在寻找的人吗？</strong></p>
+
+        <p>您已经下载了俄语版书籍。您已经读过或至少浏览过。您理解它的内容，并且您理解这个工具对说您语言的人可能有用。</p>
+
+        <p>如果是这样 —— 我们正是在寻找您。</p>
+
+        <p>我们不是在寻找一个简单的「翻译者」。我们在寻找一个 <strong>合著者</strong>，这个合著者能够：</p>
+        <ul>
+            <li>理解模型的哲学结构。</li>
+            <li>在目标语言中找到适当的对等词。</li>
+            <li>保持术语的一致性。</li>
+            <li>传达的不仅是意义，还有文本的风格和能量。</li>
+        </ul>
+
+        <p><strong>需要翻译的内容：</strong></p>
+        <ul>
+            <li>书籍全文（除第5章以外的所有章节——公理形式的模型）。</li>
+            <li>模型本身的文本（第5章）——需要特殊的术语精确性。</li>
+            <li>注解、目录、参考文献。</li>
+        </ul>
+
+        <p><strong>我们提供：</strong></p>
+        <ul>
+            <li>这是一个非商业项目，但我们重视您的工作。</li>
+            <li>灵活的交稿期限——质量比速度更重要。</li>
+            <li>您的名字作为翻译者出现在网站和书籍中（或匿名——随您意愿）。</li>
+            <li>成为正在兴起的诺耶蒂克时代一部分的机会。</li>
+        </ul>
+
+        <p><strong>如何开始：</strong></p>
+
+        <p>请用 <strong>俄语</strong> 写信给我们：<span class="email">threefloorsofbeing@gmail.com</span></p>
+
+        <p>告诉我们书中和模型中什么吸引了您。剩下的我们一起解决。</p>
+
+        <div class="footer-quote">
+            <em>为那些准备好看见自己周围——以及超越它——的真实现实，在其全部深度和连结性中的人的工具。</em>
+        </div>
+
+    </div>
+
+    <div class="back-link">
+        <a href="../index-zh.html">← 返回主页</a>
+    </div>
+
+    <div class="footer">
+        © n+1, 2026
+    </div>
+
+</div>
+
+<!-- 模态窗口 -->
+<div class="modal-overlay" id="modal">
+    <span class="modal-close" onclick="closeModal()">✕</span>
+    <div class="modal-content">
+        <img src="../images/cover-front.jpg" alt="书籍封面">
+        <img src="../images/cover-back.jpg" alt="书籍封底">
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('modal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        document.getElementById('modal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+    document.getElementById('modal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+</script>
+
+</body>
+</html>

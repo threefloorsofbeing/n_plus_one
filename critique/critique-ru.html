@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n+1 — Критика модели</title>
+    <style>
+        @charset "UTF-8";
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            color: #111111;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 820px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: left;
+        }
+
+        .lang-switcher {
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #888;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .lang-switcher a {
+            color: #888;
+            text-decoration: none;
+            padding: 0 6px;
+        }
+
+        .lang-switcher a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .lang-switcher .active {
+            color: #000;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .lang-switcher .sep {
+            color: #ccc;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #000;
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+        }
+
+        .content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #222;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .content p {
+            margin-bottom: 16px;
+        }
+
+        .content strong {
+            color: #000;
+        }
+
+        .content .question {
+            font-weight: bold;
+            color: #000;
+            margin-top: 20px;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        .content .question-first {
+            font-weight: bold;
+            color: #000;
+            margin-top: 0;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        .content .answer {
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+
+        .content ul {
+            margin: 8px 0 12px 25px;
+            list-style-type: none;
+        }
+
+        .content ul li::before {
+            content: "— ";
+            color: #888;
+        }
+
+        .content ul li {
+            margin-bottom: 4px;
+        }
+
+        .back-link {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .back-link a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+
+        .back-link a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 20px 15px;
+            }
+            .page-title {
+                font-size: 22px;
+            }
+            .content {
+                font-size: 14px;
+                line-height: 1.6;
+            }
+            .content .question,
+            .content .question-first {
+                font-size: 15px;
+            }
+            .lang-switcher {
+                font-size: 12px;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="page-title">Критика модели</div>
+
+    <div class="content">
+
+        <p>Модель не просит веры. Она просит проверки.</p>
+
+        <p>Если у вас есть вопросы, сомнения или возражения — вот ответы на самые частые из них.</p>
+
+        <div class="question-first">«Термины "Суть", "Цель", "Смысл" — это субъективный выбор, а не объективная истина».</div>
+        <div class="answer">
+            <p>Да, это выбор. Но не произвольный.</p>
+            <p>Любая живая система — человек, семья, корпорация, государство — чтобы существовать, должна отвечать на три вопроса:</p>
+            <ul>
+                <li><em>«Из чего я состою?»</em> — <strong>Суть</strong>. Без идентичности и ресурсов система распадается.</li>
+                <li><em>«Куда я иду?»</em> — <strong>Цель</strong>. Без направления система хаотична и уязвима.</li>
+                <li><em>«Ради чего я терплю?»</em> — <strong>Смысл</strong>. Без оправдания система не выдерживает кризисов.</li>
+            </ul>
+            <p>Попробуйте найти живую систему, которая не отвечает на эти три вопроса. Если найдёте — мы добавим четвёртый вектор. Но пока таких систем нет.</p>
+        </div>
+
+        <div class="question">«Почему именно два слоя — витальный и ноэтический?»</div>
+        <div class="answer">
+            <p>Потому что любой опыт имеет две стороны.</p>
+            <p><strong>Витальный</strong> — тело, ресурсы, еда, выживание, деньги, безопасность. Он лечится через ресурсы.</p>
+            <p><strong>Ноэтический</strong> — идентичность, смысл, ценности, доверие, любовь, правда. Он лечится через рефлексию.</p>
+            <p>Если смешать слои — вы не сможете диагностировать:</p>
+            <ul>
+                <li><em>Голод не лечится лекцией о смыслах.</em></li>
+                <li><em>Пустота не лечится деньгами.</em></li>
+            </ul>
+            <p>Два слоя — не философия. Это практическая необходимость.</p>
+        </div>
+
+        <div class="question">«Почему три этажа?»</div>
+        <div class="answer">
+            <p>Потому что любая система в любой момент времени находится в одном из трёх режимов:</p>
+            <ul>
+                <li><strong>Этаж 1</strong> — реактивный, без рефлексии. Паника, стадность, инстинкты.</li>
+                <li><strong>Этаж 2</strong> — ролевой, подчинение нормам. Планы, карьера, долг.</li>
+                <li><strong>Этаж 3</strong> — целостный, свобода и выбор. Осознанность, творчество, принятие конечности.</li>
+            </ul>
+            <p>Это не философия. Это эмпирика. Вы можете наблюдать эти режимы в себе и в других каждый день.</p>
+        </div>
+
+        <div class="question">«Это просто ещё одна философская спекуляция, таких тысячи».</div>
+        <div class="answer">
+            <p>Модель не претендует на истину. Она претендует на работоспособность.</p>
+            <p>Она — инструмент. Как молоток: он не «истина», но он забивает гвозди. Если кто-то скажет, что молоток «субъективен» — вы просто забьёте гвоздь и покажете результат.</p>
+            <p>Критерий модели — не «истина», а прогностическая точность и объяснительная сила.</p>
+        </div>
+
+        <div class="question">«Пирамида Маслоу, логотерапия Франкла, Кьеркегор уже объяснили это».</div>
+        <div class="answer">
+            <p>Все эти модели описывают разные плоскости реальности.</p>
+            <ul>
+                <li>Маслоу — иерархию потребностей.</li>
+                <li>Франкл — волю к смыслу.</li>
+                <li>Кьеркегор — стадии личности.</li>
+            </ul>
+            <p>Наша модель — единственная, которая:</p>
+            <ol style="margin: 6px 0 6px 25px; list-style-type: decimal; padding-left: 0;">
+                <li style="margin-bottom: 2px;">Собирает все эти плоскости в единую систему координат.</li>
+                <li style="margin-bottom: 2px;">Работает на любом масштабе — от человека до империи.</li>
+                <li style="margin-bottom: 2px;">Даёт инструмент диагностики разрывов и фигуру «вора».</li>
+            </ol>
+            <p>Мы не отменяем предшественников. Мы надстраиваемся над ними, добавляя объём.</p>
+        </div>
+
+        <div class="question">«Вы не можете доказать, что ваша модель — единственно верная».</div>
+        <div class="answer">
+            <p>Мы и не пытаемся.</p>
+            <p>Модель — не религия. Она не претендует на «единственно верный» путь. Она претендует на «рабочую карту».</p>
+            <p>Если у вас есть карта точнее — покажите. Мы её проверим. Если она точнее — мы перейдём на неё. Но пока наша карта показывает разрывы, которые не видят другие. И это — её доказательство.</p>
+        </div>
+
+        <p style="margin-top: 30px; font-weight: bold; font-size: 16px;">Итог</p>
+        <p>Модель не защищают. Её используют.</p>
+        <p>Если она работает — её не нужно защищать. Если она не работает — её нужно менять.</p>
+        <p>Пока она работает — критики могут проверять. Но опровергать им придётся реальность, а не модель.</p>
+        <p>Модель открыта к изменениям. Если вы найдёте систему, которая не описывается тремя векторами, двумя слоями и тремя этажами — мы её пересмотрим. Если вы покажете разрыв, который модель не видит — мы её доработаем. Если вы предложите инструмент точнее — мы перейдём на него.</p>
+        <p style="margin-top: 16px;"><strong>Это наука, а не религия.</strong></p>
+
+    </div>
+
+    <div class="back-link">
+        <a href="../index-ru.html">← На главную</a>
+    </div>
+
+    <div class="footer">
+        © n+1, 2026
+    </div>
+
+</div>
+
+</body>
+</html>

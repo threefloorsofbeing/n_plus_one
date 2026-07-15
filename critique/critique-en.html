@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n+1 — Model Critique</title>
+    <style>
+        @charset "UTF-8";
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 820px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: left;
+        }
+
+        .page-title {
+            font-size: 34px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+        }
+
+        .content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .content p {
+            margin-bottom: 18px;
+        }
+
+        .content strong {
+            color: #000000;
+        }
+
+        .content .question {
+            font-weight: bold;
+            color: #000000;
+            margin-top: 24px;
+            margin-bottom: 8px;
+            font-size: 19px;
+        }
+
+        .content .question-first {
+            font-weight: bold;
+            color: #000000;
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 19px;
+        }
+
+        .content .answer {
+            margin-bottom: 18px;
+            padding-left: 4px;
+        }
+
+        .content ul {
+            margin: 10px 0 14px 25px;
+            list-style-type: none;
+        }
+
+        .content ul li::before {
+            content: "— ";
+            color: #000000;
+        }
+
+        .content ul li {
+            margin-bottom: 5px;
+            color: #000000;
+        }
+
+        .content ol {
+            margin: 10px 0 14px 25px;
+            list-style-type: decimal;
+            padding-left: 0;
+        }
+
+        .content ol li {
+            margin-bottom: 5px;
+            color: #000000;
+        }
+
+        .content .conclusion {
+            margin-top: 34px;
+            font-weight: bold;
+            font-size: 19px;
+        }
+
+        .back-link {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .back-link a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+
+        .back-link a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 20px 15px;
+            }
+            .page-title {
+                font-size: 28px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+            .content .question,
+            .content .question-first {
+                font-size: 17px;
+            }
+            .back-link {
+                font-size: 14px;
+            }
+            .footer {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="page-title">Model Critique</div>
+
+    <div class="content">
+
+        <p>The model does not ask for faith. It asks for verification.</p>
+
+        <p>If you have questions, doubts, or objections — here are answers to the most common ones.</p>
+
+        <div class="question-first">"The terms 'Essence,' 'Purpose,' 'Meaning' — this is a subjective choice, not objective truth."</div>
+        <div class="answer">
+            <p>Yes, it is a choice. But not arbitrary.</p>
+            <p>Any living system — a person, a family, a corporation, a state — in order to exist, must answer three questions:</p>
+            <ul>
+                <li><em>"What am I made of?"</em> — <strong>Essence</strong>. Without identity and resources, the system disintegrates.</li>
+                <li><em>"Where am I going?"</em> — <strong>Purpose</strong>. Without direction, the system is chaotic and vulnerable.</li>
+                <li><em>"Why do I endure?"</em> — <strong>Meaning</strong>. Without justification, the system cannot withstand crises.</li>
+            </ul>
+            <p>Try to find a living system that does not answer these three questions. If you find one — we will add a fourth vector. But so far, no such systems exist.</p>
+        </div>
+
+        <div class="question">"Why exactly two layers — vital and noetic?"</div>
+        <div class="answer">
+            <p>Because any experience has two sides.</p>
+            <p><strong>Vital</strong> — body, resources, food, survival, money, safety. It is healed through resources.</p>
+            <p><strong>Noetic</strong> — identity, meaning, values, trust, love, truth. It is healed through reflection.</p>
+            <p>If you mix the layers — you cannot diagnose:</p>
+            <ul>
+                <li><em>Hunger cannot be cured with a lecture on meanings.</em></li>
+                <li><em>Emptiness cannot be cured with money.</em></li>
+            </ul>
+            <p>Two layers are not philosophy. They are practical necessity.</p>
+        </div>
+
+        <div class="question">"Why three floors?"</div>
+        <div class="answer">
+            <p>Because any system at any moment is in one of three modes:</p>
+            <ul>
+                <li><strong>Floor 1</strong> — reactive, without reflection. Panic, herd instinct, instincts.</li>
+                <li><strong>Floor 2</strong> — role-based, submission to norms. Plans, career, duty.</li>
+                <li><strong>Floor 3</strong> — integral, freedom and choice. Awareness, creativity, acceptance of finitude.</li>
+            </ul>
+            <p>This is not philosophy. This is empirical reality. You can observe these modes in yourself and in others every day.</p>
+        </div>
+
+        <div class="question">"This is just another philosophical speculation, there are thousands like it."</div>
+        <div class="answer">
+            <p>The model does not claim to be truth. It claims to be functional.</p>
+            <p>It is a tool. Like a hammer: it is not "truth," but it drives nails. If someone says a hammer is "subjective" — you just drive a nail and show the result.</p>
+            <p>The criterion of the model is not "truth," but predictive accuracy and explanatory power.</p>
+        </div>
+
+        <div class="question">"Maslow's pyramid, Frankl's logotherapy, Kierkegaard already explained this."</div>
+        <div class="answer">
+            <p>All these models describe different planes of reality.</p>
+            <ul>
+                <li>Maslow — hierarchy of needs.</li>
+                <li>Frankl — will to meaning.</li>
+                <li>Kierkegaard — stages of personality.</li>
+            </ul>
+            <p>Our model is the only one that:</p>
+            <ol>
+                <li>Collects all these planes into a single coordinate system.</li>
+                <li>Works on any scale — from a person to an empire.</li>
+                <li>Provides a tool for diagnosing ruptures and the figure of the "Thief."</li>
+            </ol>
+            <p>We do not negate our predecessors. We build on them, adding volume.</p>
+        </div>
+
+        <div class="question">"You cannot prove that your model is the only correct one."</div>
+        <div class="answer">
+            <p>We are not trying.</p>
+            <p>The model is not a religion. It does not claim to be the "only correct" path. It claims to be a "working map."</p>
+            <p>If you have a more accurate map — show it. We will test it. If it is more accurate — we will switch to it. But for now, our map shows ruptures that others do not see. And that is its proof.</p>
+        </div>
+
+        <div class="conclusion">Conclusion</div>
+        <p>The model is not defended. It is used.</p>
+        <p>If it works — it does not need defense. If it does not work — it needs to be changed.</p>
+        <p>As long as it works — critics can test it. But to refute it, they will have to refute reality, not the model.</p>
+        <p>The model is open to change. If you find a system that cannot be described by three vectors, two layers, and three floors — we will revise it. If you show a rupture that the model does not see — we will upgrade it. If you propose a more precise tool — we will switch to it.</p>
+        <p style="margin-top: 18px;"><strong>This is science, not religion.</strong></p>
+
+    </div>
+
+    <div class="back-link">
+        <a href="../index-en.html">← Back to main</a>
+    </div>
+
+    <div class="footer">
+        © n+1, 2026
+    </div>
+
+</div>
+
+</body>
+</html>

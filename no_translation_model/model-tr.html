@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n+1 — Model</title>
+    <!-- TÜRKÇE ÇEVİRİ (TR) -->
+    <style>
+        @charset "UTF-8";
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #ffffff;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 820px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: left;
+        }
+        .content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+        .content .sub {
+            font-size: 20px;
+            color: #000000;
+            margin: 5px 0 10px 0;
+        }
+        .divider {
+            margin: 25px auto;
+            width: 60%;
+            border-top: 1px solid #ccc;
+        }
+        .file-block {
+            margin: 15px 0;
+            font-size: 18px;
+            color: #000000;
+        }
+        .file-block .links {
+            margin-top: 6px;
+            font-size: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 30px;
+        }
+        .file-block .links a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+        .file-block .links a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .modal-content img {
+            max-width: 45%;
+            height: auto;
+            border: 1px solid #555;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+            background: #fff;
+        }
+        .modal-close {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            user-select: none;
+            z-index: 10000;
+            text-decoration: none;
+        }
+        .modal-close:hover {
+            color: #aaa;
+        }
+        .modal-caption {
+            color: #aaa;
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 15px;
+            text-align: center;
+            max-width: 800px;
+            letter-spacing: 1px;
+        }
+        .warning-tr {
+            margin: 30px 0 0 0;
+            padding: 14px 20px;
+            background: #ffeeee;
+            border-left: 4px solid #cc0000;
+            font-size: 16px;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            line-height: 1.6;
+        }
+        .warning-tr strong {
+            color: #000000;
+        }
+        .no-translation-tr {
+            margin: 20px 0 0 0;
+            padding: 14px 20px;
+            background: #ffffff;
+            border-left: 4px solid #000000;
+            font-size: 16px;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            line-height: 1.6;
+        }
+        .no-translation-tr strong {
+            color: #000000;
+        }
+        .no-translation-tr ul {
+            margin: 10px 0 12px 25px;
+            list-style-type: none;
+        }
+        .no-translation-tr ul li::before {
+            content: "— ";
+            color: #000000;
+        }
+        .no-translation-tr ul li {
+            margin-bottom: 4px;
+            color: #000000;
+        }
+        .no-translation-tr .email {
+            font-weight: bold;
+            color: #000000;
+        }
+        .no-translation-tr .footer-quote {
+            margin-top: 20px;
+            font-style: italic;
+            color: #000000;
+            border-top: 1px solid #ccc;
+            padding-top: 16px;
+        }
+        .back-link {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+        }
+        .back-link a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+        .back-link a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+        .lang-switcher {
+            margin-top: 15px;
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #000000;
+            text-align: center;
+        }
+        .lang-switcher a {
+            color: #000000;
+            text-decoration: none;
+            padding: 0 6px;
+        }
+        .lang-switcher a:hover {
+            color: #000000;
+            text-decoration: underline;
+        }
+        .lang-switcher .active {
+            color: #000000;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 20px 15px; }
+            .content { font-size: 16px; }
+            .content .sub { font-size: 18px; }
+            .file-block { font-size: 16px; }
+            .warning-tr { font-size: 14px; padding: 10px 15px; }
+            .no-translation-tr { font-size: 14px; padding: 10px 15px; }
+            .back-link { font-size: 14px; }
+            .footer { font-size: 12px; }
+            .lang-switcher { font-size: 12px; }
+            .modal-content { flex-direction: column; }
+            .modal-content img { max-width: 90%; }
+            .modal-close { font-size: 30px; top: 15px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="content">
+
+        <p style="font-size: 22px; font-weight: bold; color: #000000;">Dünya'nın tüm felsefesi — tek bir mercekte.</p>
+
+        <p class="sub">Kitap — anlamak için.<br>Model — kullanmak için.</p>
+
+        <div class="divider"></div>
+
+        <!-- KİTAP -->
+        <div class="file-block">
+            <strong>Kitap + analitik model "Varlığın Üç Katı" v3.7</strong>
+            <div class="links">
+                <a href="#" onclick="openModal(); return false;">Gör</a>
+                <a href="../books/Книга ТЭБv3.7_сборка 7.07.2026.rtf" download>İndir</a>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <p style="font-size: 22px; color: #000000;">Gerisi — sizin seçiminiz.</p>
+
+    </div>
+
+    <!-- UYARI -->
+    <div class="warning-tr">
+        <strong>Uyarı:</strong> Model, yazıldığı dilde yanıt verir.<br>
+        Soruların ve cevapların diğer dillere çevrilmesi anlamı bozar.<br>
+        Başka bir dilde çalışmak istiyorsanız — modeli kültürel nüansları göz önünde bulundurarak çevirin.
+    </div>
+
+    <!-- ÇEVİRİ YOK -->
+    <div class="no-translation-tr">
+
+        <p><strong>Dilinize henüz bir çeviri yok.</strong></p>
+
+        <p>«Varlığın Üç Katı» kitabı ve modeli Rusça yazılmıştır. Bu tesadüf değil — Rusça, modelin doğduğu ve terminolojik kesinliğini kazandığı alandı.</p>
+
+        <p>Makine çevirileri yayınlamıyoruz. Çünkü felsefi bir model bir kullanım kılavuzu değildir. Bu, birbiriyle bağlantılı terimlerden oluşan bir sistemdir. Bir kelimedeki hata, tüm yapıyı yok eder.</p>
+
+        <p><strong>Ama bunu değiştirebilirsiniz.</strong></p>
+
+        <p><strong>Makine çevirisi neden imkânsızdır</strong></p>
+
+        <p>«Varlığın Üç Katı» modeli ne kurgu ne de teknik bir kılavuzdur. Bu, her kelimenin diğerleriyle bağlantılı olduğu <strong>terminolojik bir sistemdir</strong>. Bir terimdeki hata, tüm yapıyı yok eder.</p>
+
+        <p><strong>Örnek:</strong> «Öz» kelimesi sadece «öz» değildir. Modelde aynı anda: temel, kimlik, sistemin çekirdeği, «ben kimim?» sorusunun cevabıdır.</p>
+
+        <p>Makine çevirisi anlama yanılsaması verir ama mantığı kırar. Böyle bir modeli kullanan okuyucu bir araç değil, onun çarpıtılmış bir kopyasını elde eder. Kırılmaları teşhis edemez, Hırsız'ı göremez veya noetik esnekliği değerlendiremez.</p>
+
+        <p>Bu nedenle <strong>bir kişiyi</strong> bekliyoruz. Bu kişi:</p>
+        <ul>
+            <li>hedef dile anadil seviyesinde hâkim olmalı,</li>
+            <li>felsefi terminolojiyi anlamalı,</li>
+            <li>sadece çevirmen değil, ortak yazar olmaya hazır olmalı.</li>
+        </ul>
+
+        <p><strong>Aradığımız kişi siz misiniz?</strong></p>
+
+        <p>Kitabı zaten Rusça olarak indirdiniz. Okudunuz veya en azından göz gezdirdiniz. Ne hakkında olduğunu anlıyorsunuz ve bu aracın sizin dilinizi konuşan insanlar için yararlı olabileceğini anlıyorsunuz.</p>
+
+        <p>Öyleyse — tam olarak sizi arıyoruz.</p>
+
+        <p>Sadece bir «çevirmen» aramıyoruz. Bir <strong>ortak yazar</strong> arıyoruz. Bu ortak yazar:</p>
+        <ul>
+            <li>Modelin felsefi yapısını anlayabilmeli.</li>
+            <li>Hedef dilde uygun karşılıkları bulabilmeli.</li>
+            <li>Terimlerin tutarlılığını koruyabilmeli.</li>
+            <li>Sadece anlamı değil, metnin üslubunu ve enerjisini de aktarabilmeli.</li>
+        </ul>
+
+        <p><strong>Çevrilmesi gerekenler:</strong></p>
+        <ul>
+            <li>Kitabın tam metni (5. Bölüm hariç tüm bölümler — aksiyomatik formdaki model).</li>
+            <li>Modelin kendi metni (5. Bölüm) — özel terminolojik kesinlik gerektirir.</li>
+            <li>Özet, içindekiler, kaynakça.</li>
+        </ul>
+
+        <p><strong>Ne sunuyoruz:</strong></p>
+        <ul>
+            <li>Bu kar amacı gütmeyen bir projedir, ancak emeğinize değer veriyoruz.</li>
+            <li>Esnek teslim tarihleri — hızdan çok kalite önemlidir.</li>
+            <li>Web sitesinde ve kitapta çevirmen olarak adınız (veya anonim — tercihinize göre).</li>
+            <li>Yükselen noetik çağın bir parçası olma fırsatı.</li>
+        </ul>
+
+        <p><strong>Nasıl başlanır:</strong></p>
+
+        <p>Bize <strong>Rusça</strong> yazın: <span class="email">threefloorsofbeing@gmail.com</span></p>
+
+        <p>Kitap ve modelde sizi neyin etkilediğini anlatın. Gerisini birlikte hallederiz.</p>
+
+        <div class="footer-quote">
+            <em>Etrafındaki — ve ötesindeki — gerçek gerçekliği tüm derinliği ve bağlantısıyla görmeye hazır olanlar için bir araç.</em>
+        </div>
+
+    </div>
+
+    <div class="back-link">
+        <a href="../index-tr.html">← Ana sayfaya dön</a>
+    </div>
+
+    <div class="footer">
+        © n+1, 2026
+    </div>
+
+</div>
+
+<!-- MODAL PENCERESİ -->
+<div class="modal-overlay" id="modal">
+    <span class="modal-close" onclick="closeModal()">✕</span>
+    <div class="modal-content">
+        <img src="../images/cover-front.jpg" alt="Kitap kapağı">
+        <img src="../images/cover-back.jpg" alt="Kitap arka kapağı">
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('modal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        document.getElementById('modal').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+    document.getElementById('modal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+</script>
+
+</body>
+</html>

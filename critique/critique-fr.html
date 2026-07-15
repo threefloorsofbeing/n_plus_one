@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n+1 — Critique du Modèle</title>
+    <!-- TRADUCTION EN FRANÇAIS (FR) -->
+    <style>
+        @charset "UTF-8";
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 820px;
+            width: 100%;
+            padding: 40px 20px;
+            text-align: left;
+        }
+
+        .page-title {
+            font-size: 34px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+        }
+
+        .content {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #000000;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .content p {
+            margin-bottom: 18px;
+        }
+
+        .content strong {
+            color: #000000;
+        }
+
+        .content .question {
+            font-weight: bold;
+            color: #000000;
+            margin-top: 24px;
+            margin-bottom: 8px;
+            font-size: 19px;
+        }
+
+        .content .question-first {
+            font-weight: bold;
+            color: #000000;
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 19px;
+        }
+
+        .content .answer {
+            margin-bottom: 18px;
+            padding-left: 4px;
+        }
+
+        .content ul {
+            margin: 10px 0 14px 25px;
+            list-style-type: none;
+        }
+
+        .content ul li::before {
+            content: "— ";
+            color: #000000;
+        }
+
+        .content ul li {
+            margin-bottom: 5px;
+            color: #000000;
+        }
+
+        .content ol {
+            margin: 10px 0 14px 25px;
+            list-style-type: decimal;
+            padding-left: 0;
+        }
+
+        .content ol li {
+            margin-bottom: 5px;
+            color: #000000;
+        }
+
+        .content .conclusion {
+            margin-top: 34px;
+            font-weight: bold;
+            font-size: 19px;
+        }
+
+        .back-link {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .back-link a {
+            color: #0000CC;
+            text-decoration: underline;
+        }
+
+        .back-link a:hover {
+            background: #0000CC;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 20px 15px;
+            }
+            .page-title {
+                font-size: 28px;
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.7;
+            }
+            .content .question,
+            .content .question-first {
+                font-size: 17px;
+            }
+            .back-link {
+                font-size: 14px;
+            }
+            .footer {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="page-title">Critique du Modèle</div>
+
+    <div class="content">
+
+        <p>Le modèle ne demande pas la foi. Il demande la vérification.</p>
+
+        <p>Si vous avez des questions, des doutes ou des objections — voici les réponses aux plus fréquentes.</p>
+
+        <div class="question-first">« Les termes « Essence », « But », « Sens » — c'est un choix subjectif, pas une vérité objective. »</div>
+        <div class="answer">
+            <p>Oui, c'est un choix. Mais pas arbitraire.</p>
+            <p>Tout système vivant — personne, famille, entreprise, État — pour exister, doit répondre à trois questions :</p>
+            <ul>
+                <li><em>« De quoi suis-je fait ? »</em> — <strong>Essence</strong>. Sans identité et ressources, le système se désintègre.</li>
+                <li><em>« Où vais-je ? »</em> — <strong>But</strong>. Sans direction, le système est chaotique et vulnérable.</li>
+                <li><em>« Pourquoi est-ce que j'endure ? »</em> — <strong>Sens</strong>. Sans justification, le système ne résiste pas aux crises.</li>
+            </ul>
+            <p>Essayez de trouver un système vivant qui ne répond pas à ces trois questions. Si vous en trouvez un — nous ajouterons un quatrième vecteur. Mais jusqu'à présent, de tels systèmes n'existent pas.</p>
+        </div>
+
+        <div class="question">« Pourquoi exactement deux couches — vitale et noétique ? »</div>
+        <div class="answer">
+            <p>Parce que toute expérience a deux faces.</p>
+            <p><strong>Vital</strong> — corps, ressources, nourriture, survie, argent, sécurité. Il se guérit par les ressources.</p>
+            <p><strong>Noétique</strong> — identité, sens, valeurs, confiance, amour, vérité. Il se guérit par la réflexion.</p>
+            <p>Si vous mélangez les couches — vous ne pouvez pas diagnostiquer :</p>
+            <ul>
+                <li><em>La faim ne se guérit pas par un cours sur le sens.</em></li>
+                <li><em>Le vide ne se guérit pas par l'argent.</em></li>
+            </ul>
+            <p>Deux couches ne sont pas de la philosophie. C'est une nécessité pratique.</p>
+        </div>
+
+        <div class="question">« Pourquoi trois étages ? »</div>
+        <div class="answer">
+            <p>Parce que tout système à tout moment se trouve dans l'un de trois modes :</p>
+            <ul>
+                <li><strong>Étage 1</strong> — réactif, sans réflexion. Panique, instinct grégaire, instincts.</li>
+                <li><strong>Étage 2</strong> — basé sur les rôles, soumission aux normes. Plans, carrière, devoir.</li>
+                <li><strong>Étage 3</strong> — intégral, liberté et choix. Conscience, créativité, acceptation de la finitude.</li>
+            </ul>
+            <p>Ce n'est pas de la philosophie. C'est de l'empirie. Vous pouvez observer ces modes en vous-même et chez les autres chaque jour.</p>
+        </div>
+
+        <div class="question">« C'est juste une autre spéculation philosophique, il y en a des milliers. »</div>
+        <div class="answer">
+            <p>Le modèle ne prétend pas être la vérité. Il prétend être fonctionnel.</p>
+            <p>C'est un outil. Comme un marteau : il n'est pas « vérité », mais il enfonce des clous. Si quelqu'un dit qu'un marteau est « subjectif » — enfoncez simplement un clou et montrez le résultat.</p>
+            <p>Le critère du modèle n'est pas la « vérité », mais la précision prédictive et le pouvoir explicatif.</p>
+        </div>
+
+        <div class="question">« La pyramide de Maslow, la logothérapie de Frankl, Kierkegaard ont déjà expliqué cela. »</div>
+        <div class="answer">
+            <p>Tous ces modèles décrivent différents plans de la réalité.</p>
+            <ul>
+                <li>Maslow — la hiérarchie des besoins.</li>
+                <li>Frankl — la volonté de sens.</li>
+                <li>Kierkegaard — les étapes de la personnalité.</li>
+            </ul>
+            <p>Notre modèle est le seul qui :</p>
+            <ol>
+                <li>Rassemble tous ces plans en un seul système de coordonnées.</li>
+                <li>Fonctionne à n'importe quelle échelle — d'une personne à un empire.</li>
+                <li>Offre un outil pour diagnostiquer les ruptures et la figure du « Voleur ».</li>
+            </ol>
+            <p>Nous ne nions pas nos prédécesseurs. Nous nous appuyons sur eux, en ajoutant du volume.</p>
+        </div>
+
+        <div class="question">« Vous ne pouvez pas prouver que votre modèle est le seul correct. »</div>
+        <div class="answer">
+            <p>Nous n'essayons pas.</p>
+            <p>Le modèle n'est pas une religion. Il ne prétend pas être la voie « seule correcte ». Il prétend être une « carte fonctionnelle ».</p>
+            <p>Si vous avez une carte plus précise — montrez-la. Nous la testerons. Si elle est plus précise — nous y passerons. Mais pour l'instant, notre carte montre des ruptures que les autres ne voient pas. Et c'est sa preuve.</p>
+        </div>
+
+        <div class="conclusion">Conclusion</div>
+        <p>Le modèle n'est pas défendu. Il est utilisé.</p>
+        <p>S'il fonctionne — il n'a pas besoin de défense. S'il ne fonctionne pas — il doit être changé.</p>
+        <p>Tant qu'il fonctionne — les critiques peuvent le tester. Mais pour le réfuter, ils devront réfuter la réalité, pas le modèle.</p>
+        <p>Le modèle est ouvert au changement. Si vous trouvez un système qui ne peut pas être décrit par trois vecteurs, deux couches et trois étages — nous le réviserons. Si vous montrez une rupture que le modèle ne voit pas — nous l'améliorerons. Si vous proposez un outil plus précis — nous y passerons.</p>
+        <p style="margin-top: 18px;"><strong>C'est de la science, pas de la religion.</strong></p>
+
+    </div>
+
+    <div class="back-link">
+        <a href="../index-fr.html">← Retour à la page principale</a>
+    </div>
+
+    <div class="footer">
+        © n+1, 2026
+    </div>
+
+</div>
+
+</body>
+</html>
